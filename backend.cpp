@@ -1,4 +1,3 @@
-
 #include <algorithm>
 #include <cmath>
 #include <iostream>
@@ -43,6 +42,8 @@ std::vector<std::string> split(std::string expression) {
 	std::vector<std::string> e;
 	std::cout << "The expression is " << expression << std::endl;
 	std::string str = "";
+	bool is_prev_operator = true;
+	bool added_bracket = false;
 	for (auto c : expression) {
 		if (c == ' ') {
 			continue;
@@ -50,15 +51,34 @@ std::vector<std::string> split(std::string expression) {
 		if (isOperator(c)) {
 			if (str != "") {
 				e.push_back(str);
+				if (added_bracket) {
+					e.push_back(")");
+					added_bracket = false;
+				}
+				is_prev_operator = false;
 			}
-			e.push_back(std::string(1, c));
+
+			str = std::string(1, c);
+			if (is_prev_operator) {
+				if (str == "+" || str == "-" || str == "!" || str == "@" ||
+				    str == "#") {
+					e.push_back("(");
+				} else {
+					std::cout << "Invalid Operator" << std::endl;
+					exit(1);
+				}
+			}
+			e.push_back(str);
 			str = "";
 		} else {
 			str += c;
 		}
 	}
 	if (str != "") {
-		e.push_back(str);
+		if (added_bracket) {
+			e.push_back(str);
+			e.push_back(")");
+		}
 	}
 	return e;
 }
@@ -219,7 +239,7 @@ int main(int argc, char *argv[]) {
 	// ! for sin
 	// @ for cos
 	// # for tan
-	std::string expression = "#(0.78)";
+	std::string expression = "1/(-2)";
 	auto pf = infixToPostfix(expression);
 	for (auto i : pf) {
 		std::cout << i << " ";
