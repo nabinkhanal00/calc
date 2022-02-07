@@ -16,8 +16,8 @@ bool isBrackets(char op) {
 }
 bool isOperator(char op) {
 	if (op == '/' || op == '*' || op == '+' || op == '-' || op == '^' ||
-	    op == '(' || op == ')' || op == '[' || op == ']' || op == '{' ||
-	    op == '}') {
+	    op == '!' || op == '@' || op == '#' || op == '(' || op == ')' ||
+	    op == '[' || op == ']' || op == '{' || op == '}') {
 		return true;
 	}
 	return false;
@@ -32,8 +32,8 @@ bool isBrackets(std::string op) {
 }
 bool isOperator(std::string op) {
 	if (op == "/" || op == "*" || op == "+" || op == "-" || op == "^" ||
-	    op == "(" || op == ")" || op == "{" || op == "}" || op == "[" ||
-	    op == "]") {
+	    op == "!" || op == "@" || op == "#" || op == "(" || op == ")" ||
+	    op == "{" || op == "}" || op == "[" || op == "]") {
 		return true;
 	}
 	return false;
@@ -108,22 +108,19 @@ std::vector<std::string> infixToPostfix(std::string expression) {
 	priority["/"] = 1;
 	priority["*"] = 1;
 	priority["^"] = 2;
+	priority["!"] = 3;
+	priority["@"] = 3;
+	priority["#"] = 3;
 	if (!isValid(expression)) {
 		std::cout << "Invalid expression" << std::endl;
 	}
 	std::vector<std::string> infix = split(expression);
 	bool isPreviousOperator = true;
-	int foundDualOperator = 1;
 	std::vector<std::string> postfix;
 	std::stack<std::string> s;
 	for (auto i : infix) {
 		if (!isOperator(i)) {
-			if (foundDualOperator == -1) {
-				postfix.push_back("-" + i);
-			} else {
-				postfix.push_back(i);
-			}
-			foundDualOperator = 1;
+			postfix.push_back(i);
 			isPreviousOperator = false;
 		} else {
 			if (i == "(" || i == "{" || i == "[") {
@@ -136,10 +133,12 @@ std::vector<std::string> infixToPostfix(std::string expression) {
 				s.pop();
 			} else {
 				if (isPreviousOperator) {
-					if (i == "-") {
-						foundDualOperator *= -1;
-						continue;
-					} else if (i != "+") {
+					if (i == "+" || i == "-" || i == "!" || i == "@" ||
+					    i == "#") {
+						postfix.push_back("0");
+					} else {
+						std::cout << "Error: invalid unary operator"
+						          << std::endl;
 						exit(1);
 					}
 				}
@@ -183,6 +182,14 @@ std::string eval(std::string first, std::string second, std::string op) {
 		result = s / f;
 	} else if (op == "^") {
 		result = pow(s, f);
+	} else if (op == "!") {
+		result = sin(f);
+
+	} else if (op == "@") {
+		result = cos(f);
+
+	} else if (op == "#") {
+		result = tan(f);
 	}
 	return std::to_string(result);
 }
@@ -209,7 +216,10 @@ double evalPostfix(std::vector<std::string> postfix) {
 }
 
 int main(int argc, char *argv[]) {
-	std::string expression = " (3 / 4 * 2 / ( 1 - 5 ) ^ 2 ^ 3";
+	// ! for sin
+	// @ for cos
+	// # for tan
+	std::string expression = "#(0.78)";
 	auto pf = infixToPostfix(expression);
 	for (auto i : pf) {
 		std::cout << i << " ";

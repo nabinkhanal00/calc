@@ -277,7 +277,7 @@
    <widget class="QLCDNumber" name="Input">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>30</x>
       <y>10</y>
       <width>401</width>
       <height>41</height>
@@ -290,7 +290,7 @@
    <widget class="QLCDNumber" name="Result">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>30</x>
       <y>50</y>
       <width>401</width>
       <height>61</height>
