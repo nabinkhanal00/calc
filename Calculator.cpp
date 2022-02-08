@@ -195,7 +195,7 @@ double Calculator::calculate(const char *_expr,
 int main() {
 	try {
 		std::map<std::string, double> m;
-		const char *expression = "1/(-c)";
+		const char *expression = "-1+2";
 		auto vars = Calculator::find_variables(expression);
 		for (auto i : vars) {
 			std::cout << "Enter the value for " << i << " : ";
