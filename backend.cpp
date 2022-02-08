@@ -97,8 +97,8 @@ char m(char c) {
 
 bool isValid(std::string expression) {
   std::stack<char> s;
-  std::regex r("[+-]?\\d+[.]?\\d*([-+*\\/][-+]?\\d+\\.?\\d*)+");
-  std::string e_wo_brackets;//expression_without_brackets
+  std::regex r("[+-]?([0-9]+|[#!@]+)[.]?[0-9]*([-+*\\/][-+]?([0-9]+|[#!@]+)[.]?[0-9]*)+");
+  std::string e_wo_brackets; // expression_without_brackets
   for (auto i : expression) {
     if (isBrackets(i)) {
       continue;
@@ -121,9 +121,8 @@ bool isValid(std::string expression) {
     }
   }
   if (s.empty()) {
-    if(std::regex_match(e_wo_brackets,r)){
+    if (std::regex_match(e_wo_brackets, r))
       return true;
-    }
   }
   return false;
 }
@@ -249,7 +248,7 @@ int main(int argc, char *argv[]) {
   // ! for sin
   // @ for cos
   // # for tan
-  std::string expression = "-1--2.";
+  std::string expression = "2+3/3+9-10-";
   auto pf = infixToPostfix(expression);
   for (auto i : pf) {
     std::cout << i << " ";
