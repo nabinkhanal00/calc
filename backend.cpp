@@ -71,7 +71,7 @@ char m(char c) {
 
 bool isValid(std::string expression) {
   std::stack<char> s;
-  std::regex r("[+-]?([0-9]*|[#!@]+)[.]?[0-9]*([-+*\\/"
+  std::regex r("[+-]?([0-9]*|[#!@]+)[.]?[0-9]*([-+*^\\/"
                "][-+]?([0-9]*|[#!@]+)[.]?[0-9]*)+");
   std::string e_wo_brackets; // expression_without_brackets
   for (auto i : expression) {
@@ -147,8 +147,7 @@ std::vector<std::string> infixToPostfix(std::string expression) {
           s.push(i);
         } else {
 
-          while (!s.empty() && s.top() != "(" && s.top() != "{" &&
-                 s.top() != "[" && priority[i] <= priority[s.top()]) {
+          while (!s.empty() && s.top() != "(" && priority[i] <= priority[s.top()]) {
             if (i == "^" && s.top() == "^") {
               break;
             }
@@ -217,7 +216,7 @@ int main(int argc, char *argv[]) {
   // ! for sin
   // @ for cos
   // # for tan
-  std::string expression = "-(3+.)";
+  std::string expression = "-(#(30)^6^1)";
   auto pf = infixToPostfix(expression);
   for (auto i : pf) {
     std::cout << i << " ";
