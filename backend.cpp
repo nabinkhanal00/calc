@@ -143,7 +143,7 @@ std::vector<std::string> infixToPostfix(std::string expression) {
         if (isPreviousOperator) {
           if (i == "+" || i == "-" || i == "!" || i == "@" || i == "#") {
             if ((i == "+" || i == "-") &&
-                (s.top() == "/" || s.top() == "*" || s.top() == "^")) {
+                (s.top() == "/" || s.top() == "*" || s.top() == "^"||s.top() == "!" ||s.top() == "@" ||s.top() == "#" )) {
               if(i == "-")
                 isEsc = true;
               continue;
@@ -229,7 +229,7 @@ int main(int argc, char *argv[]) {
   // ! for sin
   // @ for cos
   // # for tan
-  std::string expression = "2^-4";
+  std::string expression = "2/!-2";
   auto pf = infixToPostfix(expression);
   for (auto i : pf) {
     std::cout << i << " ";
