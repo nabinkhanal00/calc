@@ -212,6 +212,7 @@ double evalPostfix(std::vector<std::string> postfix) {
 }
 
 int main(int argc, char *argv[]) {
+<<<<<<< Updated upstream
 	// ! for sin
 	// @ for cos
 	// # for tan
@@ -223,4 +224,17 @@ int main(int argc, char *argv[]) {
 	std::cout << std::endl;
 	auto result = evalPostfix(pf);
 	std::cout << result << std::endl;
+=======
+  // ! for sin
+  // @ for cos
+  // # for tan
+  std::string expression = "-(2+3)";
+  auto pf = infixToPostfix(expression);
+  for (auto i : pf) {
+    std::cout << i << " ";
+  }
+  std::cout << std::endl;
+  auto result = evalPostfix(pf);
+  std::cout << result << std::endl;
+>>>>>>> Stashed changes
 }
