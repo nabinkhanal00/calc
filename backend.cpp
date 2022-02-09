@@ -119,10 +119,15 @@ std::vector<std::string> infixToPostfix(std::string expression) {
   }
   std::vector<std::string> infix = split(expression);
   bool isPreviousOperator = true;
+  bool isEsc = false;
   std::vector<std::string> postfix;
   std::stack<std::string> s;
   for (auto i : infix) {
     if (!isOperator(i)) {
+      if(isEsc){
+        i = "-"+i;
+        isEsc = false;
+      }
       postfix.push_back(i);
       isPreviousOperator = false;
     } else {
@@ -137,7 +142,14 @@ std::vector<std::string> infixToPostfix(std::string expression) {
       } else {
         if (isPreviousOperator) {
           if (i == "+" || i == "-" || i == "!" || i == "@" || i == "#") {
-            postfix.push_back("0");
+            if ((i == "+" || i == "-") &&
+                (s.top() == "/" || s.top() == "*" || s.top() == "^")) {
+              if(i == "-")
+                isEsc = true;
+              continue;
+            } else {
+              postfix.push_back("0");
+            }
           } else {
             std::cout << "Error: invalid unary operator" << std::endl;
             exit(1);
@@ -147,7 +159,8 @@ std::vector<std::string> infixToPostfix(std::string expression) {
           s.push(i);
         } else {
 
-          while (!s.empty() && s.top() != "(" && priority[i] <= priority[s.top()]) {
+          while (!s.empty() && s.top() != "(" &&
+                 priority[i] <= priority[s.top()]) {
             if (i == "^" && s.top() == "^") {
               break;
             }
@@ -216,7 +229,7 @@ int main(int argc, char *argv[]) {
   // ! for sin
   // @ for cos
   // # for tan
-  std::string expression = "-(#(30)^6^1)";
+  std::string expression = "2^-4";
   auto pf = infixToPostfix(expression);
   for (auto i : pf) {
     std::cout << i << " ";
