@@ -54,6 +54,7 @@ std::vector<std::string> split(std::string expression) {
         str += "0.";
       else
         str += c;
+      isPrevOp = false;
     }
   }
   if (str != "") {
@@ -229,7 +230,7 @@ int main(int argc, char *argv[]) {
   // ! for sin
   // @ for cos
   // # for tan
-  std::string expression = "2/!-2";
+  std::string expression = "2/!-3.14";
   auto pf = infixToPostfix(expression);
   for (auto i : pf) {
     std::cout << i << " ";
