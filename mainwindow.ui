@@ -88,6 +88,9 @@
       <height>29</height>
      </rect>
     </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
     <property name="text">
      <string>6</string>
     </property>
@@ -157,7 +160,7 @@
      <string>X</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_14">
+   <widget class="QPushButton" name="plus">
     <property name="geometry">
      <rect>
       <x>290</x>
@@ -248,7 +251,7 @@
      <string>AC</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_16">
+   <widget class="QPushButton" name="minus">
     <property name="geometry">
      <rect>
       <x>380</x>
@@ -274,19 +277,6 @@
      <string>/</string>
     </property>
    </widget>
-   <widget class="QLCDNumber" name="Input">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>10</y>
-      <width>401</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="value" stdset="0">
-     <double>0.550000000000000</double>
-    </property>
-   </widget>
    <widget class="QLCDNumber" name="Result">
     <property name="geometry">
      <rect>
@@ -306,6 +296,24 @@
      <double>55.000000000000000</double>
     </property>
    </widget>
+   <widget class="QTextBrowser" name="Input">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>140</y>
+      <width>441</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>20</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -313,7 +321,7 @@
      <x>0</x>
      <y>0</y>
      <width>464</width>
-     <height>25</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

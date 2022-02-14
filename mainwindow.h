@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QString>
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
@@ -16,12 +17,42 @@ public:
     ~MainWindow();
 
 private slots:
+    void on_clear_2_clicked();
 
-    void on_lineEdit_textChanged(const QString &arg1);
+    void on_del_clicked();
+
+    void on_minus_clicked();
+
+    void on_plus_clicked();
+
+    void on_dot_clicked();
+
+    void on_zero_clicked();
+
+    void on_nine_clicked();
+
+    void on_seven_clicked();
+
+    void on_div_2_clicked();
+
+    void on_mul_clicked();
+
+    void on_five_clicked();
+
+    void on_four_clicked();
+
+    void on_three_clicked();
+
+    void on_six_clicked();
+
+    void on_two_clicked();
+
+    void on_one_clicked();
 
     void on_eight_clicked(bool checked);
 
 private:
     Ui::MainWindow *ui;
+    QString input;
 };
 #endif // MAINWINDOW_H
