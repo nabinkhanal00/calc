@@ -21,13 +21,13 @@ typedef std::queue<TokenBase *> TokenQueue_t;
 
 class Calculator {
   public:
-	static double calculate(const char *_expr,
+	static double calculate(std::string expression,
 	                        std::map<std::string, double> *_vars = 0);
 
-	static std::vector<std::string> find_variables(const char *expr);
+	static std::vector<std::string> find_variables(std::string expression);
 
   private:
-	static TokenQueue_t to_rpn(const char *expr,
+	static TokenQueue_t to_rpn(std::string expression,
 	                           std::map<std::string, double> *_vars);
 	static std::map<std::string, int> operator_precedence;
 

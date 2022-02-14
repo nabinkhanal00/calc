@@ -15,8 +15,8 @@ std::map<std::string, int> Calculator::operator_precedence = {
     {"(", -1}, {"<<", 0}, {">>", 0}, {"+", 1}, {"-", 1}, {"*", 2},
     {"/", 2},  {"^", 3},  {"!", 4},  {"@", 4}, {"#", 4}};
 
-std::vector<std::string> Calculator::find_variables(const char *_expr) {
-
+std::vector<std::string> Calculator::find_variables(std::string expression) {
+	const char *_expr = expression.c_str();
 	std::vector<std::string> variables;
 
 	// while an expression is not read completely
@@ -41,8 +41,9 @@ std::vector<std::string> Calculator::find_variables(const char *_expr) {
 	return variables;
 };
 
-TokenQueue_t Calculator::to_rpn(const char *_expr,
+TokenQueue_t Calculator::to_rpn(std::string expression,
                                 std::map<std::string, double> *_vars) {
+	const char *_expr = expression.c_str();
 	TokenQueue_t rpnQueue;
 
 	std::stack<std::string> operatorStack;
@@ -144,8 +145,9 @@ TokenQueue_t Calculator::to_rpn(const char *_expr,
 	return rpnQueue;
 }
 
-double Calculator::calculate(const char *_expr,
+double Calculator::calculate(std::string expression,
                              std::map<std::string, double> *_vars) {
+	const char *_expr = expression.c_str();
 	TokenQueue_t rpn = to_rpn(_expr, _vars);
 	std::stack<double> evaluation;
 	while (!rpn.empty()) {

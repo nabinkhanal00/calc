@@ -17,7 +17,7 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_clear_2_clicked();
+    void on_clear_clicked();
 
     void on_del_clicked();
 
@@ -33,7 +33,7 @@ private slots:
 
     void on_seven_clicked();
 
-    void on_div_2_clicked();
+    void on_div_clicked();
 
     void on_mul_clicked();
 
@@ -49,10 +49,14 @@ private slots:
 
     void on_one_clicked();
 
-    void on_eight_clicked(bool checked);
+    void on_eight_clicked();
+
+    void on_equal_clicked();
 
 private:
     Ui::MainWindow *ui;
     QString input;
+    bool on_result, editing_input;
+    void on_op_button_clicked();
 };
 #endif // MAINWINDOW_H
