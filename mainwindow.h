@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QMainWindow>
+#include "calculator.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -58,5 +59,6 @@ private:
     QString input;
     bool on_result, editing_input;
     void on_op_button_clicked();
+    Calculator c;
 };
 #endif // MAINWINDOW_H

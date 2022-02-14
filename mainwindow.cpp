@@ -1,10 +1,10 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
-#include "backend.cpp"
 #include <iostream>
+#include "backend.cpp"
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::MainWindow), on_result(false),
+    : QMainWindow(parent), ui(new Ui::MainWindow) ,on_result(false),
       editing_input(false) {
 	ui->setupUi(this);
 	input = "";
@@ -149,16 +149,12 @@ void MainWindow::on_clear_clicked() {
 }
 
 void MainWindow::on_equal_clicked() {
-    QString qtext = input;
-	std::string str = qtext.toStdString();
+    c.calculate_input = input.toStdString();
     try {
-        double result = calculate(str);
-        ui->Result->display(result);
-
-    }  catch (std::string error) {
-        ui->Result->display("math error");
+        ui->Result->display(c.calculate(nullptr));
+    }  catch (...) {
+        ui->Result->display("error");
         input.clear();
-
     }
 	on_result = true;
 }
