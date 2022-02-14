@@ -157,7 +157,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>X</string>
+     <string>*</string>
     </property>
    </widget>
    <widget class="QPushButton" name="plus">
@@ -199,7 +199,7 @@
      <string>.</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_18">
+   <widget class="QPushButton" name="unknown">
     <property name="geometry">
      <rect>
       <x>200</x>
@@ -212,7 +212,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_19">
+   <widget class="QPushButton" name="ans">
     <property name="geometry">
      <rect>
       <x>290</x>
@@ -225,7 +225,7 @@
      <string>Ans</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_21">
+   <widget class="QPushButton" name="equal">
     <property name="geometry">
      <rect>
       <x>380</x>
@@ -238,7 +238,7 @@
      <string>=</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="clear_2">
+   <widget class="QPushButton" name="clear">
     <property name="geometry">
      <rect>
       <x>380</x>
@@ -264,7 +264,7 @@
      <string>-</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="div_2">
+   <widget class="QPushButton" name="div">
     <property name="geometry">
      <rect>
       <x>380</x>
@@ -280,38 +280,64 @@
    <widget class="QLCDNumber" name="Result">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>50</y>
-      <width>401</width>
+      <x>10</x>
+      <y>60</y>
+      <width>441</width>
       <height>61</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Space Mono for Powerline</family>
+      <pointsize>8</pointsize>
+     </font>
+    </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="smallDecimalPoint">
+     <bool>true</bool>
     </property>
     <property name="digitCount">
      <number>10</number>
     </property>
     <property name="value" stdset="0">
-     <double>55.000000000000000</double>
+     <double>0.000000000000000</double>
+    </property>
+    <property name="intValue" stdset="0">
+     <number>0</number>
     </property>
    </widget>
-   <widget class="QTextBrowser" name="Input">
+   <widget class="QLineEdit" name="Input">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>140</y>
+      <y>0</y>
       <width>441</width>
-      <height>51</height>
+      <height>61</height>
      </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
     </property>
     <property name="font">
      <font>
-      <pointsize>20</pointsize>
+      <family>Space Mono for Powerline</family>
+      <pointsize>18</pointsize>
+      <bold>true</bold>
      </font>
     </property>
-    <property name="styleSheet">
-     <string notr="true"/>
+    <property name="cursor">
+     <cursorShape>UpArrowCursor</cursorShape>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>
@@ -321,7 +347,7 @@
      <x>0</x>
      <y>0</y>
      <width>464</width>
-     <height>22</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>
