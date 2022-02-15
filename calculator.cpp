@@ -51,8 +51,13 @@ std::vector<std::string> Calculator::split() {
 	// checking if the previous token was a digit
 	bool is_previous_digit = false;
 
-	// for unary operation
-	int added_parentheses_count = 0;
+	// total parentheses
+	int tp = 0;
+
+	// parentheses during adding
+	int pc = 0;
+
+	int ac = 0;
 
 	// to store the result of the splitting
 	std::vector<std::string> result;
@@ -76,13 +81,6 @@ std::vector<std::string> Calculator::split() {
 			double digit = std::strtod(expr, &new_expr);
 			result.push_back(std::to_string(digit));
 
-			if (added_parentheses_count > 0) {
-				// if the parentheses has been added while finding unary
-				// operator add the ending parentheses
-				result.push_back(")");
-				added_parentheses_count--;
-			}
-
 			// maintaining the booleans
 			is_previous_digit = true;
 			is_previous_operator = false;
@@ -90,6 +88,11 @@ std::vector<std::string> Calculator::split() {
 			// changing the expr pointer to the new pointer which points to
 			// the character after the double number
 			expr = new_expr;
+
+			if (ac > 0 && pc == 0) {
+				result.push_back(")");
+				ac--;
+			}
 
 		}
 
@@ -109,6 +112,20 @@ std::vector<std::string> Calculator::split() {
 
 		// putting the brackets as they are
 		else if (*expr == '(' || *expr == ')') {
+			if (*expr == '(') {
+				tp++;
+				if (ac > 0) {
+					pc++;
+				}
+			} else {
+				tp--;
+				if (ac > 0) {
+					pc--;
+				}
+			}
+			if (tp < 0) {
+				throw std::domain_error("Invalid use of parentheses.");
+			}
 			result.push_back(std::string(1, *expr));
 			expr++;
 		}
@@ -119,9 +136,9 @@ std::vector<std::string> Calculator::split() {
 				// is unary add the brackets between them
 				if (is_unary(*expr)) {
 					if (result.empty() || result.back() != "(") {
+						ac++;
 						result.push_back("(");
 						result.push_back("0");
-						added_parentheses_count++;
 					}
 				} else {
 					throw std::domain_error("Invalid expression");
@@ -136,6 +153,10 @@ std::vector<std::string> Calculator::split() {
 			error += *expr;
 			throw std::domain_error(error);
 		}
+	}
+	if (ac > 0) {
+		result.push_back(")");
+		ac--;
 	}
 	return result;
 }
@@ -245,6 +266,6 @@ std::string Calculator::evaluate(std::vector<std::string> &rpn) {
 double Calculator::calculate(std::map<std::string, double> *m) {
 	std::vector<std::string> infix = split();
 	std::vector<std::string> rpn = to_rpn(infix, m);
-	std::string result=  evaluate(rpn);
+	std::string result = evaluate(rpn);
 	return std::stod(result);
 }

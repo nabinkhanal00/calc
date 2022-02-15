@@ -54,9 +54,20 @@ private slots:
 
     void on_equal_clicked();
 
+    void on_inverse_clicked();
+
+    void on_left_b_clicked();
+
+    void on_cos_clicked();
+
+    void on_tan_clicked();
+
+    void on_sin_clicked();
+
+    void on_right_b_clicked();
+
 private:
     Ui::MainWindow *ui;
-    QString input;
     bool on_result, editing_input;
     void on_op_button_clicked();
     Calculator c;
