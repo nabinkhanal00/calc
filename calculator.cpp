@@ -2,7 +2,7 @@
 #include <iostream>
 
 Calculator::Calculator()
-    : previous_answer(0), calculate_input(""), display_input("") {}
+    : previous_answer(45), calculate_input(""), display_input("") {}
 
 std::map<std::string, int> Calculator::priority_table = {
     {"(", -1}, {"<<", 0}, {">>", 0}, {"+", 1}, {"-", 1}, {"*", 2},
@@ -69,6 +69,12 @@ std::vector<std::string> Calculator::split() {
 		if (*expr == ' ') {
 			expr++;
 		}
+        else if(*expr == '~'){
+            result.push_back(std::to_string(previous_answer));
+            is_previous_operator = false;
+            is_previous_digit = true;
+            expr++;
+        }
 		// if the given character is a digit [0-9]
 		else if (std::isdigit(*expr)) {
 
@@ -141,6 +147,7 @@ std::vector<std::string> Calculator::split() {
 						result.push_back("0");
 					}
 				} else {
+                    std::cout << *expr << "Is the invalid operator" << std::endl;
 					throw std::domain_error("Invalid expression");
 				}
 			}
@@ -158,6 +165,12 @@ std::vector<std::string> Calculator::split() {
 		result.push_back(")");
 		ac--;
 	}
+
+    std::cout << "Splitted string: " << std::endl;
+    for(auto& i: result){
+        std::cout << i << " ";
+    }
+    std::cout << std::endl;
 	return result;
 }
 
@@ -214,6 +227,11 @@ Calculator::to_rpn(std::vector<std::string> &expression,
 		rpn.push_back(operator_stack.top());
 		operator_stack.pop();
 	}
+    std::cout << "RPN string: " << std::endl;
+    for(auto& i: rpn){
+        std::cout << i << " ";
+    }
+    std::cout << std::endl;
 	return rpn;
 }
 
@@ -238,7 +256,9 @@ std::string Calculator::eval(std::string first, std::string second,
 		result = cos(f);
 	} else if (op == "#") {
 		result = tan(f);
-	}
+    }else{
+        result = 0;
+    }
 	return std::to_string(result);
 }
 
@@ -260,7 +280,9 @@ std::string Calculator::evaluate(std::vector<std::string> &rpn) {
 			}
 		}
 	}
-	return number_stack.top();
+    std::string result = number_stack.top();
+    std::cout << "Result: " << result << std::endl;
+    return result;
 }
 
 double Calculator::calculate(std::map<std::string, double> *m) {

@@ -66,10 +66,26 @@ private slots:
 
     void on_right_b_clicked();
 
+    void on_up_clicked();
+
+    void on_down_clicked();
+
+    void on_left_clicked();
+
+    void on_right_clicked();
+
+    void on_ans_clicked();
+
+    void on_digit_button_clicked();
+
 private:
     Ui::MainWindow *ui;
-    bool on_result, editing_input;
+    bool on_result, on_edit;
     void on_op_button_clicked();
+    std::vector<std::string> display_stack;
+    std::vector<std::string> calculate_stack;
+    int s_count;
     Calculator c;
+    int cp;
 };
 #endif // MAINWINDOW_H

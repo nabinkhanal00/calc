@@ -326,18 +326,24 @@
     <property name="font">
      <font>
       <family>Space Mono for Powerline</family>
-      <pointsize>18</pointsize>
+      <pointsize>25</pointsize>
       <bold>true</bold>
      </font>
     </property>
     <property name="cursor">
      <cursorShape>IBeamCursor</cursorShape>
     </property>
+    <property name="mouseTracking">
+     <bool>false</bool>
+    </property>
     <property name="alignment">
      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
     </property>
     <property name="readOnly">
      <bool>true</bool>
+    </property>
+    <property name="cursorMoveStyle">
+     <enum>Qt::LogicalMoveStyle</enum>
     </property>
    </widget>
    <widget class="QPushButton" name="left_b">
@@ -415,7 +421,7 @@
      </rect>
     </property>
     <property name="text">
-     <string/>
+     <string>^</string>
     </property>
    </widget>
    <widget class="QPushButton" name="down">
@@ -428,7 +434,7 @@
      </rect>
     </property>
     <property name="text">
-     <string/>
+     <string>v</string>
     </property>
    </widget>
    <widget class="QPushButton" name="left">
@@ -441,7 +447,7 @@
      </rect>
     </property>
     <property name="text">
-     <string/>
+     <string>&lt;</string>
     </property>
    </widget>
    <widget class="QPushButton" name="right">
@@ -454,7 +460,7 @@
      </rect>
     </property>
     <property name="text">
-     <string/>
+     <string>&gt;</string>
     </property>
    </widget>
    <widget class="QPushButton" name="inverse">
