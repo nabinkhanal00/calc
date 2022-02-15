@@ -157,8 +157,8 @@ void MainWindow::on_minus_clicked() {
 void MainWindow::on_del_clicked() {
     int cp = ui->Input->cursorPosition();
 
-    c.display_input.erase(cp, 1);
-    c.calculate_input.erase(cp, 1);
+    c.display_input.erase(cp-1, 1);
+    c.calculate_input.erase(cp-1, 1);
     ui->Input->setText(QString::fromStdString(c.display_input));
 
 }
