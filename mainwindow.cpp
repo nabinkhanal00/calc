@@ -101,7 +101,7 @@ void MainWindow::on_seven_clicked() {
 }
 
 void MainWindow::on_eight_clicked() {
-    on_op_button_clicked();
+    on_digit_button_clicked();
     int cp = ui->Input->cursorPosition();
     c.calculate_input.insert(cp, "8");
     c.display_input.insert(cp, "8");
