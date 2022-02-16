@@ -68,13 +68,12 @@ std::vector<std::string> Calculator::split() {
 		// ignore the whitespace
 		if (*expr == ' ') {
 			expr++;
+		} else if (*expr == '~') {
+			result.push_back(std::to_string(previous_answer));
+			is_previous_operator = false;
+			is_previous_digit = true;
+			expr++;
 		}
-        else if(*expr == '~'){
-            result.push_back(std::to_string(previous_answer));
-            is_previous_operator = false;
-            is_previous_digit = true;
-            expr++;
-        }
 		// if the given character is a digit [0-9]
 		else if (std::isdigit(*expr)) {
 
@@ -137,6 +136,15 @@ std::vector<std::string> Calculator::split() {
 		}
 		// if the scanned character is the operator
 		else if (is_operator(*expr)) {
+			if (is_previous_digit) {
+				char c = *expr;
+				if (c == '#' || c == '@' || c == '!') {
+					result.push_back("*");
+					is_previous_digit = false;
+					is_previous_operator = true;
+				}
+			}
+
 			if (is_previous_operator) {
 				// if the previous character was operator and this character
 				// is unary add the brackets between them
@@ -147,7 +155,8 @@ std::vector<std::string> Calculator::split() {
 						result.push_back("0");
 					}
 				} else {
-                    std::cout << *expr << "Is the invalid operator" << std::endl;
+					std::cout << *expr << "Is the invalid operator"
+					          << std::endl;
 					throw std::domain_error("Invalid expression");
 				}
 			}
@@ -166,11 +175,11 @@ std::vector<std::string> Calculator::split() {
 		ac--;
 	}
 
-    std::cout << "Splitted string: " << std::endl;
-    for(auto& i: result){
-        std::cout << i << " ";
-    }
-    std::cout << std::endl;
+	std::cout << "Splitted string: " << std::endl;
+	for (auto &i : result) {
+		std::cout << i << " ";
+	}
+	std::cout << std::endl;
 	return result;
 }
 
@@ -227,11 +236,11 @@ Calculator::to_rpn(std::vector<std::string> &expression,
 		rpn.push_back(operator_stack.top());
 		operator_stack.pop();
 	}
-    std::cout << "RPN string: " << std::endl;
-    for(auto& i: rpn){
-        std::cout << i << " ";
-    }
-    std::cout << std::endl;
+	std::cout << "RPN string: " << std::endl;
+	for (auto &i : rpn) {
+		std::cout << i << " ";
+	}
+	std::cout << std::endl;
 	return rpn;
 }
 
@@ -251,14 +260,17 @@ std::string Calculator::eval(std::string first, std::string second,
 	} else if (op == "^") {
 		result = pow(s, f);
 	} else if (op == "!") {
-		result = sin(f);
+		double f_deg = f * M_PI / 180;
+		result = sin(f_deg);
 	} else if (op == "@") {
-		result = cos(f);
+		double f_deg = f * M_PI / 180;
+		result = cos(f_deg);
 	} else if (op == "#") {
-		result = tan(f);
-    }else{
-        result = 0;
-    }
+		double f_deg = f * M_PI / 180;
+		result = tan(f_deg);
+	} else {
+		result = 0;
+	}
 	return std::to_string(result);
 }
 
@@ -280,9 +292,9 @@ std::string Calculator::evaluate(std::vector<std::string> &rpn) {
 			}
 		}
 	}
-    std::string result = number_stack.top();
-    std::cout << "Result: " << result << std::endl;
-    return result;
+	std::string result = number_stack.top();
+	std::cout << "Result: " << result << std::endl;
+	return result;
 }
 
 double Calculator::calculate(std::map<std::string, double> *m) {
