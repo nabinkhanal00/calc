@@ -10,6 +10,9 @@
     <height>746</height>
    </rect>
   </property>
+  <property name="focusPolicy">
+   <enum>Qt::NoFocus</enum>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
@@ -337,10 +340,10 @@
      <bool>false</bool>
     </property>
     <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
     </property>
     <property name="readOnly">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
     <property name="cursorMoveStyle">
      <enum>Qt::LogicalMoveStyle</enum>
@@ -535,7 +538,7 @@
      <x>0</x>
      <y>0</y>
      <width>464</width>
-     <height>25</height>
+     <height>29</height>
     </rect>
    </property>
   </widget>

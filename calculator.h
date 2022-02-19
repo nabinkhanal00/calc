@@ -9,6 +9,7 @@
 #include <stdexcept>
 #include <string>
 #include <cmath>
+#include <regex>
 
 class Calculator {
   private:
@@ -20,6 +21,7 @@ class Calculator {
 	std::vector<std::string> split();
 	std::string evaluate(std::vector<std::string>& rpn);
 	std::string eval(std::string first, std::string second, std::string op);
+    bool isValid(std::string expression);
   public:
 	Calculator();
 	double calculate(std::map<std::string, double> *m = nullptr);

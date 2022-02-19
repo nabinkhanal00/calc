@@ -22,6 +22,44 @@ inline bool Calculator::is_unary(char c) {
 	return false;
 }
 
+bool Calculator::isValid(std::string expression) {
+   std::cout<<expression<<std::endl;
+  std::stack<char> s;
+  std::regex r("[+-]?([0-9]*|[#!@~]+)[.]?[0-9]*([-+*^\\/"
+               "]?[-+]?([0-9]*|[#!@~]+)[.]?[0-9]*)+");
+
+
+  std::string e_wo_brackets; // expression_without_brackets
+  for (auto i : expression) {
+    if (i=='('||i==')'||i==' ') {
+      continue;
+    } else {
+      e_wo_brackets += i;
+    }
+  }
+  std::cout<<e_wo_brackets<<std::endl;
+  for (auto i : expression) {
+    if (i == '(') {
+      s.push(i);
+    } else if (i == ')') {
+      if (s.empty()) {
+        return false;
+      }
+      char top = s.top();
+      s.pop();
+      if (top != '(') {
+        return false;
+      }
+    }
+  }
+  std::cout<<s.size()<<std::endl;
+  if (s.empty()) {
+    if (std::regex_match(e_wo_brackets, r))
+      return true;
+  }
+  return false;
+}
+
 std::vector<std::string> find_variables(std::string expression) {
 	std::vector<std::string> variables;
 	const char *cstr = expression.c_str();
@@ -75,7 +113,7 @@ std::vector<std::string> Calculator::split() {
 			expr++;
 		}
 		// if the given character is a digit [0-9]
-		else if (std::isdigit(*expr)) {
+        else if (std::isdigit(*expr) || *expr == '.') {
 
 			// with the help of strtod function we can extract whole
 			// double digit at a time
@@ -94,10 +132,10 @@ std::vector<std::string> Calculator::split() {
 			// the character after the double number
 			expr = new_expr;
 
-			if (ac > 0 && pc == 0) {
-				result.push_back(")");
-				ac--;
-			}
+            if (ac > 0 && pc == 0) {
+                result.push_back(")");
+                ac--;
+            }
 
 		}
 
@@ -117,20 +155,23 @@ std::vector<std::string> Calculator::split() {
 
 		// putting the brackets as they are
 		else if (*expr == '(' || *expr == ')') {
-			if (*expr == '(') {
-				tp++;
-				if (ac > 0) {
-					pc++;
-				}
-			} else {
-				tp--;
-				if (ac > 0) {
-					pc--;
-				}
-			}
-			if (tp < 0) {
-				throw std::domain_error("Invalid use of parentheses.");
-			}
+            if (*expr == '(') {
+                if(is_previous_digit){
+                    result.push_back("*");
+                }
+                tp++;
+                if (ac > 0) {
+                    pc++;
+                }
+            } else {
+                tp--;
+                if (ac > 0) {
+                    pc--;
+                }
+            }
+            if (tp < 0) {
+                throw std::domain_error("Invalid use of parentheses.");
+            }
 			result.push_back(std::string(1, *expr));
 			expr++;
 		}
@@ -149,11 +190,11 @@ std::vector<std::string> Calculator::split() {
 				// if the previous character was operator and this character
 				// is unary add the brackets between them
 				if (is_unary(*expr)) {
-					if (result.empty() || result.back() != "(") {
-						ac++;
-						result.push_back("(");
-						result.push_back("0");
-					}
+                    if (result.empty() || result.back() != "(") {
+                        ac++;
+                        result.push_back("(");
+                        result.push_back("0");
+                    }
 				} else {
 					std::cout << *expr << "Is the invalid operator"
 					          << std::endl;
@@ -233,6 +274,7 @@ Calculator::to_rpn(std::vector<std::string> &expression,
 		}
 	}
 	while (!operator_stack.empty()) {
+        if(operator_stack.top() != "(")
 		rpn.push_back(operator_stack.top());
 		operator_stack.pop();
 	}
@@ -275,6 +317,7 @@ std::string Calculator::eval(std::string first, std::string second,
 }
 
 std::string Calculator::evaluate(std::vector<std::string> &rpn) {
+
 	std::stack<std::string> number_stack;
 	for (auto &token : rpn) {
 		if (token[0] >= '0' && token[0] <= '9') {
@@ -298,6 +341,9 @@ std::string Calculator::evaluate(std::vector<std::string> &rpn) {
 }
 
 double Calculator::calculate(std::map<std::string, double> *m) {
+    if(!isValid(calculate_input))
+        throw std::domain_error("invalid parentheses");
+
 	std::vector<std::string> infix = split();
 	std::vector<std::string> rpn = to_rpn(infix, m);
 	std::string result = evaluate(rpn);

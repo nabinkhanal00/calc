@@ -3,6 +3,8 @@
 
 #include <QString>
 #include <QMainWindow>
+
+#include <QKeyEvent>
 #include "calculator.h"
 
 QT_BEGIN_NAMESPACE
@@ -15,6 +17,7 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = nullptr);
+
     ~MainWindow();
 
 private slots:
@@ -77,6 +80,8 @@ private slots:
     void on_ans_clicked();
 
     void on_digit_button_clicked();
+ protected:
+    void keyPressEvent(QKeyEvent *event);
 
 private:
     Ui::MainWindow *ui;
