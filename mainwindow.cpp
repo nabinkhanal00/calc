@@ -198,7 +198,7 @@ void MainWindow::on_clear_clicked() {
   c.calculate_input.clear();
   s_count = calculate_stack.size() - 1;
   ui->Input->clear();
-  ui->Result->display(0);
+  ui->Result->setText(0);
   on_result = false;
   on_edit = false;
 }
@@ -209,7 +209,7 @@ void MainWindow::on_equal_clicked() {
       return;
     }
     double value = c.calculate(nullptr);
-    ui->Result->display(value);
+    ui->Result->setText(QString::fromStdString(std::to_string(value)));
     if (calculate_stack.empty() ||
         calculate_stack.back() != c.calculate_input) {
       calculate_stack.push_back(c.calculate_input);
@@ -221,12 +221,12 @@ void MainWindow::on_equal_clicked() {
     c.previous_answer = value;
   } catch (std::domain_error d) {
     std::cout << d.what() << std::endl;
-    ui->Result->display(d.what());
+    ui->Result->setText(d.what());
     c.display_input.clear();
     c.calculate_input.clear();
     ui->Input->clear();
   } catch (...) {
-    ui->Result->display("error");
+    ui->Result->setText("error");
   }
   on_result = true;
   on_edit = false;
