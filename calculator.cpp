@@ -25,8 +25,8 @@ inline bool Calculator::is_unary(char c) {
 bool Calculator::isValid(std::string expression) {
 	std::cout << expression << std::endl;
 	std::stack<char> s;
-	std::regex r("[+-]?([0-9]*|[#!@~]+)[.]?[0-9]*([-+*^\\/"
-	             "]?[-+]?([0-9]*|[#!@~]+)[.]?[0-9]*)+");
+    std::regex r("[+-]?([0-9]*|[#!@~]+)[.]?[0-9]+([-+*^\\/"
+                 "]?[-+]?([0-9]*|[#!@~]+)[.]?[0-9]+)+");
 
 	std::string e_wo_brackets; // expression_without_brackets
 	for (auto i : expression) {
