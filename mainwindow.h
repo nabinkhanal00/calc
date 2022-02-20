@@ -80,7 +80,9 @@ private slots:
     void on_ans_clicked();
 
     void on_digit_button_clicked();
- protected:
+    void on_pow_clicked();
+
+protected:
     void keyPressEvent(QKeyEvent *event);
 
 private:

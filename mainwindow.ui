@@ -303,7 +303,7 @@ color:black;
      <string>.</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="unknown">
+   <widget class="QPushButton" name="pow">
     <property name="geometry">
      <rect>
       <x>200</x>
@@ -319,7 +319,7 @@ color:black;
 }</string>
     </property>
     <property name="text">
-     <string/>
+     <string>^</string>
     </property>
    </widget>
    <widget class="QPushButton" name="ans">
@@ -444,6 +444,9 @@ color:black;
     </property>
     <property name="mouseTracking">
      <bool>false</bool>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
     </property>
     <property name="styleSheet">
      <string notr="true">QLineEdit{
@@ -755,6 +758,12 @@ color:white;
     <property name="mouseTracking">
      <bool>false</bool>
     </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::RightToLeft</enum>
+    </property>
     <property name="styleSheet">
      <string notr="true">QLineEdit{
 background-color:rgb(230, 230, 230);
@@ -762,10 +771,10 @@ color:black;
 }</string>
     </property>
     <property name="alignment">
-     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
     </property>
     <property name="readOnly">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="cursorMoveStyle">
      <enum>Qt::VisualMoveStyle</enum>

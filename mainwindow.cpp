@@ -209,7 +209,11 @@ void MainWindow::on_equal_clicked() {
       return;
     }
     double value = c.calculate(nullptr);
+    if(abs(value - int(value)) > 0.000001){
     ui->Result->setText(QString::fromStdString(std::to_string(value)));
+    }else{
+    ui->Result->setText(QString::fromStdString(std::to_string(int(value))));
+    }
     if (calculate_stack.empty() ||
         calculate_stack.back() != c.calculate_input) {
       calculate_stack.push_back(c.calculate_input);
@@ -413,3 +417,14 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
     }
   }
 }
+
+void MainWindow::on_pow_clicked()
+{
+  on_op_button_clicked();
+  int cp = ui->Input->cursorPosition();
+  c.calculate_input.insert(cp, "^");
+  c.display_input.insert(cp, "^");
+
+  ui->Input->setText(QString::fromStdString(c.display_input));
+}
+
