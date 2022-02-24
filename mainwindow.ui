@@ -770,6 +770,9 @@ background-color:rgb(230, 230, 230);
 color:black;
 }</string>
     </property>
+    <property name="maxLength">
+     <number>21</number>
+    </property>
     <property name="alignment">
      <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
     </property>

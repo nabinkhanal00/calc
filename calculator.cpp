@@ -6,7 +6,7 @@ Calculator::Calculator()
 
 std::map<std::string, int> Calculator::priority_table = {
     {"(", -1}, {"<<", 0}, {">>", 0}, {"+", 1}, {"-", 1}, {"*", 2},
-    {"/", 2},  {"^", 3},  {"!", 4},  {"@", 4}, {"#", 4}};
+    {"/", 2},  {"^", 3},  {"!", 4},  {"@", 4}, {"#", 4},{"$",4}};
 
 inline bool Calculator::is_operator(char c) {
 	if (c == '/' || c == '*' || c == '^' || is_unary(c)) {
@@ -16,7 +16,7 @@ inline bool Calculator::is_operator(char c) {
 }
 
 inline bool Calculator::is_unary(char c) {
-	if (c == '+' || c == '-' || c == '!' || c == '@' || c == '#') {
+    if (c == '+' || c == '-' || c == '!' || c == '@' || c == '#'||c == '$') {
 		return true;
 	}
 	return false;
@@ -25,14 +25,17 @@ inline bool Calculator::is_unary(char c) {
 bool Calculator::isValid(std::string expression) {
 	std::cout << expression << std::endl;
 	std::stack<char> s;
-    std::regex r("[+-]?([0-9]*|[#!@~]+)[.]?[0-9]+([-+*^\\/"
-                 "]?[-+]?([0-9]*|[#!@~]+)[.]?[0-9]+)+");
+    std::regex r("[+-]?([0-9]*|[#!@$]*)[.]?[0-9]+([-+*^\\/"
+                 "]?[-+]?([0-9]*|[#!@$]*)[.]?[0-9]+)*");
 
 	std::string e_wo_brackets; // expression_without_brackets
 	for (auto i : expression) {
 		if (i == '(' || i == ')' || i == ' ') {
-			continue;
-		} else {
+            continue;}
+        else if(i == '~'){
+                e_wo_brackets+=std::to_string(previous_answer);
+            }
+         else {
 			e_wo_brackets += i;
 		}
 	}
@@ -181,7 +184,7 @@ std::vector<std::string> Calculator::split() {
 		else if (is_operator(*expr)) {
 			if (is_previous_digit) {
 				char c = *expr;
-				if (c == '#' || c == '@' || c == '!') {
+                if (c == '#' || c == '@' || c == '!'||c=='$') {
 					result.push_back("*");
 					is_previous_digit = false;
 					is_previous_operator = true;
@@ -312,7 +315,11 @@ std::string Calculator::eval(std::string first, std::string second,
 	} else if (op == "#") {
 		double f_deg = f * M_PI / 180;
 		result = tan(f_deg);
-	} else {
+
+    } else if(op == "$"){
+        result = log(f);
+    }
+    else {
 		result = 0;
 	}
 	return std::to_string(result);

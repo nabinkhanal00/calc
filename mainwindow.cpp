@@ -209,11 +209,15 @@ void MainWindow::on_equal_clicked() {
       return;
     }
     double value = c.calculate(nullptr);
-    if(abs(value - int(value)) > 0.000001){
-    ui->Result->setText(QString::fromStdString(std::to_string(value)));
-    }else{
-    ui->Result->setText(QString::fromStdString(std::to_string(int(value))));
-    }
+   if(log10(value)+1 > 10){
+    char answer[21];
+   sprintf(answer, "%e", value);
+    ui->Result->setText(QString::fromStdString(std::string(answer)));
+}else{
+        std::stringstream s;
+        s << value;
+       ui->Result->setText(QString::fromStdString(s.str()));
+}
     if (calculate_stack.empty() ||
         calculate_stack.back() != c.calculate_input) {
       calculate_stack.push_back(c.calculate_input);
@@ -426,5 +430,15 @@ void MainWindow::on_pow_clicked()
   c.display_input.insert(cp, "^");
 
   ui->Input->setText(QString::fromStdString(c.display_input));
+}
+
+
+void MainWindow::on_ln_clicked()
+{
+    on_op_button_clicked();
+    int cp = ui->Input->cursorPosition();
+    c.calculate_input.insert(cp, "  $(");
+    c.display_input.insert(cp, "ln(");
+    ui->Input->setText(QString::fromStdString(c.display_input));
 }
 

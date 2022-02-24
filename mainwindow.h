@@ -7,6 +7,8 @@
 #include <QKeyEvent>
 #include "calculator.h"
 
+#include <sstream>
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -81,6 +83,8 @@ private slots:
 
     void on_digit_button_clicked();
     void on_pow_clicked();
+
+    void on_ln_clicked();
 
 protected:
     void keyPressEvent(QKeyEvent *event);
