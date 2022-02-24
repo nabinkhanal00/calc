@@ -179,7 +179,13 @@ void MainWindow::on_del_clicked() {
         std::cout << c.calculate_input.size() << std::endl;
         c.calculate_input.erase(cp-3,3);
         c.display_input.erase(cp-3, 3);
-    }
+    }else if(substr == "$("){
+
+        std::cout << cp << std::endl;
+        std::cout << c.calculate_input.size() << std::endl;
+        c.calculate_input.erase(cp-3,3);
+        c.display_input.erase(cp-3, 3);
+        }
     else{
         c.display_input.erase(cp - 1, 1);
         c.calculate_input.erase(cp - 1, 1);
@@ -437,7 +443,7 @@ void MainWindow::on_ln_clicked()
 {
     on_op_button_clicked();
     int cp = ui->Input->cursorPosition();
-    c.calculate_input.insert(cp, "  $(");
+    c.calculate_input.insert(cp, " $(");
     c.display_input.insert(cp, "ln(");
     ui->Input->setText(QString::fromStdString(c.display_input));
 }

@@ -352,7 +352,7 @@ std::string Calculator::evaluate(std::vector<std::string> &rpn) {
 
 double Calculator::calculate(std::map<std::string, double> *m) {
     if (!isValid(calculate_input))
-        throw std::domain_error("invalid parentheses");
+        throw std::domain_error("syntax error");
 
 	std::vector<std::string> infix = split();
 	std::vector<std::string> rpn = to_rpn(infix, m);
