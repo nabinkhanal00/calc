@@ -25,8 +25,8 @@ inline bool Calculator::is_unary(char c) {
 bool Calculator::isValid(std::string expression) {
 	std::cout << expression << std::endl;
 	std::stack<char> s;
-    std::regex r("[+-]?([0-9]*|[#!@$]*)[.]?[0-9]+([-+*^\\/"
-                 "]?[-+]?([0-9]*|[#!@$]*)[.]?[0-9]+)*");
+    std::regex r("[+-]?([0-9]*|[#!@]*|[$]*)[.]?[0-9]+([-+*^\\/"
+                 "]?[-+]?([0-9]*|[#!@]*|[$]*)[.]?[0-9]+)*");
 
 	std::string e_wo_brackets; // expression_without_brackets
 	for (auto i : expression) {
@@ -56,6 +56,7 @@ bool Calculator::isValid(std::string expression) {
 	}
 	std::cout << s.size() << std::endl;
 	if (s.empty()) {
+        std::cout<<"brackets pair matched"<<std::endl;
 		if (std::regex_match(e_wo_brackets, r))
 			return true;
 	}
@@ -350,8 +351,8 @@ std::string Calculator::evaluate(std::vector<std::string> &rpn) {
 }
 
 double Calculator::calculate(std::map<std::string, double> *m) {
-	if (!isValid(calculate_input))
-		throw std::domain_error("invalid parentheses");
+    if (!isValid(calculate_input))
+        throw std::domain_error("invalid parentheses");
 
 	std::vector<std::string> infix = split();
 	std::vector<std::string> rpn = to_rpn(infix, m);
