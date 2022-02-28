@@ -1,8 +1,7 @@
 #include "calculator.h"
 #include <iostream>
 
-Calculator::Calculator()
-    : previous_answer(45), calculate_input(""), display_input("") {}
+Calculator::Calculator() : previous_answer(45), input(""), x(0), y(0), z(0) {}
 
 std::map<std::string, int> Calculator::priority_table = {
     {"(", -1}, {"<<", 0}, {">>", 0}, {"+", 1}, {"-", 1}, {"*", 2},
@@ -67,13 +66,16 @@ std::vector<std::string> find_variables(std::string expression) {
   const char *cstr = expression.c_str();
   while (*cstr) {
     std::string var = "";
-    while (*cstr && (std::isalpha(*cstr) || *cstr == '_')) {
-      var += *cstr;
+    while (*cstr && (std::isalpha(*cstr))) {
+      var += std::tolower(*cstr);
       cstr++;
     }
     if (var != "") {
-      variables.push_back(var);
-    }
+        if(var != "x" || var != "y" || var != "z"){
+            throw std::domain_error("Unrecognized variables");
+        }
+        variables.push_back(var);
+        }
     cstr++;
   }
   return variables;
@@ -82,7 +84,7 @@ std::vector<std::string> find_variables(std::string expression) {
 std::vector<std::string> Calculator::split() {
 
   std::string res;
-  const char *cstr = calculate_input.c_str();
+  const char *cstr = input.c_str();
   while (*cstr) {
     if (std::isalpha(*cstr)) {
       std::string variable = "";
@@ -99,7 +101,15 @@ std::vector<std::string> Calculator::split() {
           res += "#";
         } else if (variable == "ln") {
           res += "$";
-        } else {
+        } else if(variable == "Ans") {res += "~";}
+        else if(variable == "x"){
+            res +=std::to_string(x);
+        }else if(variable == "y"){
+            res +=std::to_string(y);
+        }else if(variable == "z"){
+            res +=std::to_string(z);
+        }
+        else {
           res += variable;
         }
       }
@@ -108,6 +118,9 @@ std::vector<std::string> Calculator::split() {
       cstr++;
     }
   }
+
+   if (!isValid(res))
+     throw std::domain_error("syntax error");
   // convert to c style string
   // easier to perform strtod function
   const char *expr = res.c_str();
@@ -248,19 +261,18 @@ std::vector<std::string> Calculator::split() {
   }
 
   std::cout << "Splitted string: " << std::endl;
-  calculate_input = "";
+  input = "";
   for (auto &i : result) {
-    calculate_input += i;
+    input += i;
   }
-  std::cout << calculate_input << std::endl;
+  std::cout << input << std::endl;
   std::cout << "after calculate input" << std::endl;
-  if (!isValid(calculate_input))
+  if (!isValid(input))
     throw std::domain_error("syntax error");
   return result;
 }
 std::vector<std::string>
-Calculator::to_rpn(std::vector<std::string> &expression,
-                   std::map<std::string, double> *m = nullptr) {
+Calculator::to_rpn(std::vector<std::string> &expression) {
 
   std::vector<std::string> rpn;
 
@@ -269,19 +281,7 @@ Calculator::to_rpn(std::vector<std::string> &expression,
   for (auto &token : expression) {
 
     if (!is_operator(token[0]) && token != "(" && token != ")") {
-
-      if (token[0] >= '0' && token[0] <= '9') {
         rpn.push_back(token);
-
-      } else {
-        std::map<std::string, double>::iterator it = m->find(token);
-        if (it == m->end()) {
-          throw std::domain_error("Unable to find the variable '" + token +
-                                  "'.");
-        }
-        double val = m->find(token)->second;
-        rpn.push_back(token);
-      }
     } else if (token == "(") {
       operator_stack.push(token);
     } else if (token == ")") {
@@ -374,12 +374,10 @@ std::string Calculator::evaluate(std::vector<std::string> &rpn) {
   return result;
 }
 
-double Calculator::calculate(std::map<std::string, double> *m) {
-  // if (!isValid(calculate_input))
-  //   throw std::domain_error("syntax error");
+double Calculator::calculate() {
 
   std::vector<std::string> infix = split();
-  std::vector<std::string> rpn = to_rpn(infix, m);
+  std::vector<std::string> rpn = to_rpn(infix);
   std::string result = evaluate(rpn);
   return std::stod(result);
 }

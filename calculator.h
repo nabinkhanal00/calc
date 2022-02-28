@@ -16,19 +16,18 @@ class Calculator {
 	bool is_operator(char c);
 	bool is_unary(char c);
 	static std::map<std::string, int> priority_table;
-	std::vector<std::string> to_rpn(std::vector<std::string>& expression,
-	                                std::map<std::string, double> *m);
+    std::vector<std::string> to_rpn(std::vector<std::string>& expression);
 	std::vector<std::string> split();
 	std::string evaluate(std::vector<std::string>& rpn);
 	std::string eval(std::string first, std::string second, std::string op);
     bool isValid(std::string expression);
   public:
 	Calculator();
-	double calculate(std::map<std::string, double> *m = nullptr);
+    double calculate();
 	std::vector<std::string> expression_history;
 	std::vector<std::string> variables;
 	double previous_answer;
-	std::string calculate_input;
-    std::string display_input;
+    std::string input;
+    double x, y, z;
 };
 #endif // CALCULATOR_H

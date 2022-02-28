@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
+#include <vector>
+#include <stack>
 #include <QString>
 #include <QMainWindow>
 
@@ -93,8 +94,7 @@ private:
     Ui::MainWindow *ui;
     bool on_result, on_edit;
     void on_op_button_clicked();
-    std::vector<std::string> display_stack;
-    std::vector<std::string> calculate_stack;
+    std::vector<std::string> stk;
     int s_count;
     Calculator c;
     int cp;
