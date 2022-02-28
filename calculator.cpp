@@ -23,10 +23,10 @@ inline bool Calculator::is_unary(char c) {
 }
 
 bool Calculator::isValid(std::string expression) {
-	std::cout << expression << std::endl;
+    std::cout<<"inside isvalid expression: " << expression << std::endl;
 	std::stack<char> s;
-    std::regex r("[+-]?([0-9]*|[#!@]*|[$]*)[.]?[0-9]+([-+*^\\/"
-                 "]?[-+]?([0-9]*|[#!@]*|[$]*)[.]?[0-9]+)*");
+    std::regex r("[+-]?([0-9]*|[#!@]*|[$]*)[.]?[0-9]*([-+*^\\/"
+                 "]?[-+]?([0-9]+|[#!@]+|[$]+)[.]?[0-9]*)+");
 
 	std::string e_wo_brackets; // expression_without_brackets
 	for (auto i : expression) {
@@ -152,11 +152,32 @@ std::vector<std::string> Calculator::split() {
 				variable += *expr;
 				expr++;
 			}
-			if (variable != "") {
+            if(variable == "sin"){
+                result.push_back("0");
+            is_previous_digit = false;
+                variable = "#";
+            }else if(variable == "cos"){
+                result.push_back("0");
+            is_previous_digit = false;
+                variable = "@";
+            }else if(variable == "tan"){
+                result.push_back("0");
+            is_previous_digit = false;
+                variable = "!";
+            }else if(variable == "ln"){
+                result.push_back("0");
+            is_previous_digit = false;
+                variable = "$";
+            }else if(variable == "Ans"){
+            is_previous_digit = true;
+                variable = "~";
+            }
+            else{
+                is_previous_digit = true;
+            }
+            if (variable != "") {
 				result.push_back(variable);
-			}
-			is_previous_digit = true;
-			is_previous_operator = false;
+            }			is_previous_operator = false;
 		}
 
 		// putting the brackets as they are
@@ -199,9 +220,9 @@ std::vector<std::string> Calculator::split() {
 					if (result.empty() || result.back() != "(") {
 						ac++;
 						result.push_back("(");
-						result.push_back("0");
-					}
-				} else {
+                    }
+                    result.push_back("0");
+                } else {
 					std::cout << *expr << "Is the invalid operator"
 					          << std::endl;
 					throw std::domain_error("Invalid expression");
@@ -222,11 +243,16 @@ std::vector<std::string> Calculator::split() {
 		ac--;
 	}
 
+
 	std::cout << "Splitted string: " << std::endl;
+    calculate_input = "";
 	for (auto &i : result) {
-		std::cout << i << " ";
+        calculate_input+=i;
 	}
-	std::cout << std::endl;
+    std::cout<<calculate_input<<std::endl;
+    std::cout<<"after calculate input"<<std::endl;
+    if (!isValid(calculate_input))
+        throw std::domain_error("syntax error");
 	return result;
 }
 
@@ -351,8 +377,8 @@ std::string Calculator::evaluate(std::vector<std::string> &rpn) {
 }
 
 double Calculator::calculate(std::map<std::string, double> *m) {
-    if (!isValid(calculate_input))
-        throw std::domain_error("syntax error");
+    //if (!isValid(calculate_input))
+    //    throw std::domain_error("syntax error");
 
 	std::vector<std::string> infix = split();
 	std::vector<std::string> rpn = to_rpn(infix, m);

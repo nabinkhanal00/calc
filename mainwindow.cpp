@@ -225,10 +225,13 @@ void MainWindow::on_clear_clicked() {
 }
 
 void MainWindow::on_equal_clicked() {
-  try {
-    if (c.calculate_input == "") {
-      return;
-    }
+    QString inpu = ui->Input->text();
+    std::cout<<"input string in qline edit: "<<inpu.toStdString()<<std::endl;
+    c.calculate_input = inpu.toStdString();
+    try {
+//    if (c.calculate_input == "") {
+//      return;
+//    }
     double value = c.calculate(nullptr);
    if(log10(value)+1 > 10){
     char answer[21];
@@ -251,14 +254,12 @@ void MainWindow::on_equal_clicked() {
   } catch (std::domain_error d) {
     std::cout << d.what() << std::endl;
     ui->Result->setText(d.what());
-    c.display_input.clear();
-    c.calculate_input.clear();
-    ui->Input->clear();
   } catch (...) {
     ui->Result->setText("error");
   }
   on_result = true;
   on_edit = false;
+
 }
 
 void MainWindow::on_inverse_clicked() {}

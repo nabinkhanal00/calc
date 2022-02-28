@@ -29,6 +29,6 @@ class Calculator {
 	std::vector<std::string> variables;
 	double previous_answer;
 	std::string calculate_input;
-	std::string display_input;
+    std::string display_input;
 };
 #endif // CALCULATOR_H
