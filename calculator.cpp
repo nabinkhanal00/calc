@@ -196,7 +196,7 @@ std::vector<std::string> Calculator::split() {
 				// if the previous character was operator and this character
 				// is unary add the brackets between them
 				if (is_unary(*expr)) {
-					if (result.empty() || result.back() != "(") {
+                    if (result.empty() || result.back() != "(") {
 						ac++;
 						result.push_back("(");
 						result.push_back("0");
@@ -292,6 +292,15 @@ Calculator::to_rpn(std::vector<std::string> &expression,
 	return rpn;
 }
 
+float Calculator::angleRatio(){
+    if(angle == "d"){
+        return (M_PI / 180);
+    }else if(angle == "g"){
+        return (M_PI / 200);
+    }
+    return 1;
+}
+
 std::string Calculator::eval(std::string first, std::string second,
                              std::string op) {
 	double f = std::stof(first);
@@ -308,13 +317,13 @@ std::string Calculator::eval(std::string first, std::string second,
 	} else if (op == "^") {
 		result = pow(s, f);
 	} else if (op == "!") {
-		double f_deg = f * M_PI / 180;
+        double f_deg = f * angleRatio();
 		result = sin(f_deg);
 	} else if (op == "@") {
-		double f_deg = f * M_PI / 180;
+        double f_deg = f * angleRatio();
 		result = cos(f_deg);
 	} else if (op == "#") {
-		double f_deg = f * M_PI / 180;
+        double f_deg = f * angleRatio();
 		result = tan(f_deg);
 
     } else if(op == "$"){

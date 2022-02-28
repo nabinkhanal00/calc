@@ -6,6 +6,8 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow), on_result(false),
       on_edit(false), s_count(-1), cp(0) {
   ui->setupUi(this);
+  c.angle = "d";
+  ui->angleValue->setText(QString::fromStdString(c.angle));
 }
 
 MainWindow::~MainWindow() { delete ui; }
@@ -461,5 +463,19 @@ void MainWindow::on_ln_clicked()
     c.calculate_input.insert(cp, " $(");
     c.display_input.insert(cp, "ln(");
     ui->Input->setText(QString::fromStdString(c.display_input));
+}
+
+
+void MainWindow::on_angle_clicked()
+{
+    if(c.angle == "d"){
+        c.angle = "g";
+    }else if(c.angle == "g"){
+        c.angle = "r";
+    }else{
+        c.angle = "d";
+    }
+
+    ui->angleValue->setText(QString::fromStdString(c.angle));
 }
 

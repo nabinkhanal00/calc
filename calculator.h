@@ -22,6 +22,7 @@ class Calculator {
 	std::string evaluate(std::vector<std::string>& rpn);
 	std::string eval(std::string first, std::string second, std::string op);
     bool isValid(std::string expression);
+    float angleRatio();
   public:
 	Calculator();
 	double calculate(std::map<std::string, double> *m = nullptr);
@@ -30,5 +31,6 @@ class Calculator {
 	double previous_answer;
 	std::string calculate_input;
 	std::string display_input;
+    std::string angle;
 };
 #endif // CALCULATOR_H
