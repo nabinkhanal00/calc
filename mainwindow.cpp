@@ -35,6 +35,7 @@ void MainWindow::on_zero_clicked() {
   c.display_input.insert(cp, "0");
 
   ui->Input->setText(QString::fromStdString(c.display_input));
+  ui->Input->setCursorPosition(cp+1);
 }
 
 void MainWindow::on_one_clicked() {
@@ -44,6 +45,7 @@ void MainWindow::on_one_clicked() {
   c.display_input.insert(cp, "1");
 
   ui->Input->setText(QString::fromStdString(c.display_input));
+  ui->Input->setCursorPosition(cp+1);
 }
 
 void MainWindow::on_two_clicked() {
@@ -53,6 +55,7 @@ void MainWindow::on_two_clicked() {
   c.display_input.insert(cp, "2");
 
   ui->Input->setText(QString::fromStdString(c.display_input));
+  ui->Input->setCursorPosition(cp+1);
 }
 
 void MainWindow::on_three_clicked() {
@@ -62,6 +65,7 @@ void MainWindow::on_three_clicked() {
   c.display_input.insert(cp, "3");
 
   ui->Input->setText(QString::fromStdString(c.display_input));
+  ui->Input->setCursorPosition(cp+1);
 }
 
 void MainWindow::on_four_clicked() {
@@ -71,6 +75,7 @@ void MainWindow::on_four_clicked() {
   c.display_input.insert(cp, "4");
 
   ui->Input->setText(QString::fromStdString(c.display_input));
+  ui->Input->setCursorPosition(cp+1);
 }
 
 void MainWindow::on_five_clicked() {
@@ -80,6 +85,7 @@ void MainWindow::on_five_clicked() {
   c.display_input.insert(cp, "5");
 
   ui->Input->setText(QString::fromStdString(c.display_input));
+  ui->Input->setCursorPosition(cp+1);
 }
 
 void MainWindow::on_six_clicked() {
@@ -89,6 +95,7 @@ void MainWindow::on_six_clicked() {
   c.display_input.insert(cp, "6");
 
   ui->Input->setText(QString::fromStdString(c.display_input));
+  ui->Input->setCursorPosition(cp+1);
 }
 
 void MainWindow::on_seven_clicked() {
@@ -98,6 +105,7 @@ void MainWindow::on_seven_clicked() {
   c.display_input.insert(cp, "7");
 
   ui->Input->setText(QString::fromStdString(c.display_input));
+  ui->Input->setCursorPosition(cp+1);
 }
 
 void MainWindow::on_eight_clicked() {
@@ -107,6 +115,7 @@ void MainWindow::on_eight_clicked() {
   c.display_input.insert(cp, "8");
 
   ui->Input->setText(QString::fromStdString(c.display_input));
+  ui->Input->setCursorPosition(cp+1);
 }
 
 void MainWindow::on_nine_clicked() {
@@ -116,6 +125,7 @@ void MainWindow::on_nine_clicked() {
   c.display_input.insert(cp, "9");
 
   ui->Input->setText(QString::fromStdString(c.display_input));
+  ui->Input->setCursorPosition(cp+1);
 }
 
 void MainWindow::on_mul_clicked() {
@@ -125,6 +135,7 @@ void MainWindow::on_mul_clicked() {
   c.display_input.insert(cp, "*");
 
   ui->Input->setText(QString::fromStdString(c.display_input));
+  ui->Input->setCursorPosition(cp+1);
 }
 
 void MainWindow::on_div_clicked() {
@@ -134,6 +145,7 @@ void MainWindow::on_div_clicked() {
   c.display_input.insert(cp, "/");
 
   ui->Input->setText(QString::fromStdString(c.display_input));
+  ui->Input->setCursorPosition(cp+1);
 }
 
 void MainWindow::on_dot_clicked() {
@@ -143,6 +155,7 @@ void MainWindow::on_dot_clicked() {
   c.display_input.insert(cp, ".");
 
   ui->Input->setText(QString::fromStdString(c.display_input));
+  ui->Input->setCursorPosition(cp+1);
 }
 
 void MainWindow::on_plus_clicked() {
@@ -152,6 +165,7 @@ void MainWindow::on_plus_clicked() {
   c.display_input.insert(cp, "+");
 
   ui->Input->setText(QString::fromStdString(c.display_input));
+  ui->Input->setCursorPosition(cp+1);
 }
 
 void MainWindow::on_minus_clicked() {
@@ -161,6 +175,7 @@ void MainWindow::on_minus_clicked() {
   c.display_input.insert(cp, "-");
 
   ui->Input->setText(QString::fromStdString(c.display_input));
+  ui->Input->setCursorPosition(cp+1);
 }
 
 void MainWindow::on_del_clicked() {
