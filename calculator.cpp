@@ -106,7 +106,7 @@ std::vector<std::string> Calculator::split() {
 	// while the expression is not read completely
 	while (*expr) {
 
-		// ignore the whitespace
+        // ignore the whitespace
 		if (*expr == ' ') {
 			expr++;
 		} else if (*expr == '~') {
@@ -132,16 +132,16 @@ std::vector<std::string> Calculator::split() {
 			is_previous_operator = false;
 
 			// changing the expr pointer to the new pointer which points to
-			// the character after the double number
+            // the character after the double number
 			if (expr == new_expr) {
 				new_expr++;
 			}
 			expr = new_expr;
 
-			if (ac > 0 && pc == 0) {
-				result.push_back(")");
-				ac--;
-			}
+            if (ac > 0 && pc == 0) {
+                result.push_back(")");
+                ac--;
+            }
 
 		}
 
@@ -161,24 +161,24 @@ std::vector<std::string> Calculator::split() {
 
 		// putting the brackets as they are
 		else if (*expr == '(' || *expr == ')') {
-			if (*expr == '(') {
-				if (is_previous_digit) {
+            if (*expr == '(') {
+                if (is_previous_digit) {
 					result.push_back("*");
 				}
-				tp++;
-				if (ac > 0) {
-					pc++;
-				}
-			} else {
-				tp--;
-				if (ac > 0) {
-					pc--;
-				}
-			}
-			if (tp < 0) {
-				throw std::domain_error("Invalid use of parentheses.");
-			}
-			result.push_back(std::string(1, *expr));
+                tp++;
+                if (ac > 0) {
+                    pc++;
+                }
+            } else {
+                tp--;
+                if (ac > 0) {
+                    pc--;
+                }
+            }
+            if (tp < 0) {
+                throw std::domain_error("Invalid use of parentheses.");
+            }
+            result.push_back(std::string(1, *expr));
 			expr++;
 		}
 		// if the scanned character is the operator
