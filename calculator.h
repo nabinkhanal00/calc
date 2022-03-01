@@ -13,8 +13,8 @@
 
 class Calculator {
   private:
-	bool is_operator(char c);
-	bool is_unary(char c);
+    bool is_operator(char c);
+    bool is_unary(char c);
 	static std::map<std::string, int> priority_table;
     std::vector<std::string> to_rpn(std::vector<std::string>& expression);
 	std::vector<std::string> split();
@@ -29,8 +29,7 @@ class Calculator {
 	std::vector<std::string> variables;
 	double previous_answer;
     std::string input;
-    double x, y, z;
-	std::string calculate_input;
+    std::string calculate_input;
 	std::string display_input;
     std::string angle;
 };

@@ -1,11 +1,12 @@
 #include "calculator.h"
 #include <iostream>
+#include <stdexcept>
 
-Calculator::Calculator() : previous_answer(45), input(""), x(0), y(0), z(0) {}
+Calculator::Calculator() : previous_answer(45), input("") {}
 
 std::map<std::string, int> Calculator::priority_table = {
-    {"(", -1}, {"<<", 0}, {">>", 0}, {"+", 1}, {"-", 1}, {"*", 2},
-    {"/", 2},  {"^", 3},  {"!", 4},  {"@", 4}, {"#", 4}, {"$", 4}};
+    {"(", -1}, {"<<", 0}, {">>", 0}, {"+", 1}, {"-", 1}, {"*", 2}, {"/", 2},
+    {"^", 3},  {"!", 4},  {"@", 4},  {"#", 4}, {"$", 4}, {"_", 4}};
 
 inline bool Calculator::is_operator(char c) {
   if (c == '/' || c == '*' || c == '^' || is_unary(c)) {
@@ -15,7 +16,8 @@ inline bool Calculator::is_operator(char c) {
 }
 
 inline bool Calculator::is_unary(char c) {
-  if (c == '+' || c == '-' || c == '!' || c == '@' || c == '#' || c == '$') {
+
+  if (c == '+' || c == '-' || c == '!' || c == '@' || c == '#' || c == '$'||c == '_') {
     return true;
   }
   return false;
@@ -24,8 +26,8 @@ inline bool Calculator::is_unary(char c) {
 bool Calculator::isValid(std::string expression) {
   std::cout << "inside isvalid expression: " << expression << std::endl;
   std::stack<char> s;
-  std::regex r("[+-]?([0-9]*|[#!@]*|[$]*)[.]?[0-9]*([-+*^\\/"
-               "]?[-+]?([0-9]+|[#!@]+|[$]+)[.]?[0-9]*)+");
+  std::regex r("[+-]?([0-9]*|[#!@]*|[$_]*)[.]?[0-9]*([-+*^\\/"
+               "]?[-+]?([0-9]+|[#!@]+|[$_]+)[.]?[0-9]*)+");
 
   std::string e_wo_brackets; // expression_without_brackets
   for (auto i : expression) {
@@ -60,33 +62,37 @@ bool Calculator::isValid(std::string expression) {
   }
   return false;
 }
+void replace_all(
+    std::string& s,
+    std::string const& toReplace,
+    std::string const& replaceWith
+) {
+    std::ostringstream oss;
+    std::size_t pos = 0;
+    std::size_t prevPos = pos;
 
-std::vector<std::string> find_variables(std::string expression) {
-  std::vector<std::string> variables;
-  const char *cstr = expression.c_str();
-  while (*cstr) {
-    std::string var = "";
-    while (*cstr && (std::isalpha(*cstr))) {
-      var += std::tolower(*cstr);
-      cstr++;
+    while (true) {
+        prevPos = pos;
+        pos = s.find(toReplace, pos);
+        if (pos == std::string::npos)
+            break;
+        oss << s.substr(prevPos, pos - prevPos);
+        oss << replaceWith;
+        pos += toReplace.size();
     }
-    if (var != "") {
-      if (var != "x" || var != "y" || var != "z") {
-        throw std::domain_error("Unrecognized variables");
-      }
-      variables.push_back(var);
-    }
-    cstr++;
-  }
-  return variables;
+
+    oss << s.substr(prevPos);
+    s = oss.str();
 }
-
 std::vector<std::string> Calculator::split() {
-
   std::string res;
-  const char *cstr = input.c_str();
+  std::string input = this->input;
+  replace_all(input, "e", std::to_string(M_E));
+  auto cstr = input.c_str();
   while (*cstr) {
+
     if (std::isalpha(*cstr)) {
+
       std::string variable = "";
       while (cstr && std::isalpha(*cstr)) {
         variable += *cstr;
@@ -103,13 +109,11 @@ std::vector<std::string> Calculator::split() {
           res += "$";
         } else if (variable == "Ans") {
           res += "~";
-        } else if (variable == "x") {
-          res += std::to_string(x);
-        } else if (variable == "y") {
-          res += std::to_string(y);
-        } else if (variable == "z") {
-          res += std::to_string(z);
-        } else {
+        }else if(variable == "log"){
+            res+="_";
+        } else if(variable == "pi"){
+            res+="("+std::to_string(M_PI)+")";
+        }else {
           res += variable;
         }
       }
@@ -131,12 +135,7 @@ std::vector<std::string> Calculator::split() {
   // checking if the previous token was a digit
   bool is_previous_digit = false;
 
-  // total parentheses
-  int tp = 0;
-
-  // parentheses during adding
-  int pc = 0;
-
+  // int added count
   int ac = 0;
 
   // to store the result of the splitting
@@ -177,10 +176,6 @@ std::vector<std::string> Calculator::split() {
       }
       expr = new_expr;
 
-      if (ac > 0 && pc == 0) {
-        result.push_back(")");
-        ac--;
-      }
 
     }
 
@@ -204,18 +199,12 @@ std::vector<std::string> Calculator::split() {
         if (is_previous_digit) {
           result.push_back("*");
         }
-        tp++;
-        if (ac > 0) {
-          pc++;
-        }
       } else {
-        tp--;
-        if (ac > 0) {
-          pc--;
-        }
-      }
-      if (tp < 0) {
-        throw std::domain_error("Invalid use of parentheses.");
+        if(ac > 0){
+        result.push_back(")");
+        ac--;
+          }
+
       }
       result.push_back(std::string(1, *expr));
       expr++;
@@ -224,7 +213,8 @@ std::vector<std::string> Calculator::split() {
     else if (is_operator(*expr)) {
       if (is_previous_digit) {
         char c = *expr;
-        if (c == '#' || c == '@' || c == '!' || c == '$') {
+        if (c == '#' || c == '@' || c == '!' || c == '$' ||c=='_'
+            ) {
           result.push_back("*");
           is_previous_digit = false;
           is_previous_operator = true;
@@ -342,10 +332,11 @@ std::string Calculator::eval(std::string first, std::string second,
   } else if (op == "#") {
     double f_deg = f * M_PI / 180;
     result = tan(f_deg);
-
   } else if (op == "$") {
     result = log(f);
-  } else {
+  } else if (op == "_") {
+    result = log10(f);
+  }  else {
     result = 0;
   }
   return std::to_string(result);

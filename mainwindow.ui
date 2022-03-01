@@ -436,7 +436,6 @@ color:black;
      <font>
       <family>Akaash</family>
       <pointsize>36</pointsize>
-      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -447,7 +446,7 @@ color:black;
      <bool>false</bool>
     </property>
     <property name="focusPolicy">
-     <enum>Qt::NoFocus</enum>
+     <enum>Qt::StrongFocus</enum>
     </property>
     <property name="styleSheet">
      <string notr="true">QLineEdit{
@@ -636,7 +635,7 @@ color:black;
      <string>&gt;</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="inverse">
+   <widget class="QPushButton" name="exp">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -652,10 +651,10 @@ color:white;
 }</string>
     </property>
     <property name="text">
-     <string>x^(-1)</string>
+     <string>e</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="square">
+   <widget class="QPushButton" name="pie">
     <property name="geometry">
      <rect>
       <x>110</x>
@@ -671,10 +670,10 @@ color:white;
 }</string>
     </property>
     <property name="text">
-     <string>x^2</string>
+     <string>π</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pow_n">
+   <widget class="QPushButton" name="log">
     <property name="geometry">
      <rect>
       <x>200</x>
@@ -690,7 +689,7 @@ color:white;
 }</string>
     </property>
     <property name="text">
-     <string>x^n</string>
+     <string>log</string>
     </property>
    </widget>
    <widget class="QPushButton" name="ln">
@@ -712,25 +711,6 @@ color:white;
      <string>ln</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="sqrt">
-    <property name="geometry">
-     <rect>
-      <x>380</x>
-      <y>300</y>
-      <width>61</width>
-      <height>29</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton{
-background-color:rgb(48, 48, 48);
-color:white;
-}</string>
-    </property>
-    <property name="text">
-     <string>sqrt</string>
-    </property>
-   </widget>
    <widget class="QLineEdit" name="Result">
     <property name="geometry">
      <rect>
@@ -750,7 +730,6 @@ color:white;
      <font>
       <family>Seven Segment</family>
       <pointsize>36</pointsize>
-      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -788,8 +767,8 @@ color:black;
    <widget class="QPushButton" name="angle">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>260</y>
+      <x>380</x>
+      <y>300</y>
       <width>61</width>
       <height>25</height>
      </rect>
@@ -801,11 +780,26 @@ color:black;
    <widget class="QTextEdit" name="angleValue">
     <property name="geometry">
      <rect>
-      <x>370</x>
-      <y>190</y>
-      <width>41</width>
-      <height>31</height>
+      <x>430</x>
+      <y>20</y>
+      <width>21</width>
+      <height>21</height>
      </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>

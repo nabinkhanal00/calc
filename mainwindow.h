@@ -93,6 +93,13 @@ protected:
 private slots:
     void on_angle_clicked();
 
+
+    void on_log_clicked();
+
+    void on_pie_clicked();
+
+    void on_exp_clicked();
+
 private:
     Ui::MainWindow *ui;
     bool on_result, on_edit;
