@@ -3,4 +3,10 @@
 main
 build/
 *.*.user.*
-
+.cmake/
+CMakeCache.txt
+CMakeFiles/
+Makefile
+calc-gui
+calc-gui_autogen/
+cmake_install.cmake

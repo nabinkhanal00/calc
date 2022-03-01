@@ -90,6 +90,9 @@ private slots:
 protected:
     void keyPressEvent(QKeyEvent *event);
 
+private slots:
+    void on_angle_clicked();
+
 private:
     Ui::MainWindow *ui;
     bool on_result, on_edit;

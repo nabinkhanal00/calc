@@ -71,11 +71,11 @@ std::vector<std::string> find_variables(std::string expression) {
       cstr++;
     }
     if (var != "") {
-        if(var != "x" || var != "y" || var != "z"){
-            throw std::domain_error("Unrecognized variables");
-        }
-        variables.push_back(var);
-        }
+      if (var != "x" || var != "y" || var != "z") {
+        throw std::domain_error("Unrecognized variables");
+      }
+      variables.push_back(var);
+    }
     cstr++;
   }
   return variables;
@@ -101,15 +101,15 @@ std::vector<std::string> Calculator::split() {
           res += "#";
         } else if (variable == "ln") {
           res += "$";
-        } else if(variable == "Ans") {res += "~";}
-        else if(variable == "x"){
-            res +=std::to_string(x);
-        }else if(variable == "y"){
-            res +=std::to_string(y);
-        }else if(variable == "z"){
-            res +=std::to_string(z);
-        }
-        else {
+        } else if (variable == "Ans") {
+          res += "~";
+        } else if (variable == "x") {
+          res += std::to_string(x);
+        } else if (variable == "y") {
+          res += std::to_string(y);
+        } else if (variable == "z") {
+          res += std::to_string(z);
+        } else {
           res += variable;
         }
       }
@@ -119,8 +119,8 @@ std::vector<std::string> Calculator::split() {
     }
   }
 
-   if (!isValid(res))
-     throw std::domain_error("syntax error");
+  if (!isValid(res))
+    throw std::domain_error("syntax error");
   // convert to c style string
   // easier to perform strtod function
   const char *expr = res.c_str();
@@ -281,7 +281,7 @@ Calculator::to_rpn(std::vector<std::string> &expression) {
   for (auto &token : expression) {
 
     if (!is_operator(token[0]) && token != "(" && token != ")") {
-        rpn.push_back(token);
+      rpn.push_back(token);
     } else if (token == "(") {
       operator_stack.push(token);
     } else if (token == ")") {
@@ -349,6 +349,14 @@ std::string Calculator::eval(std::string first, std::string second,
     result = 0;
   }
   return std::to_string(result);
+}
+float Calculator::angleRatio() {
+  if (angle == "d") {
+    return (M_PI / 180);
+  } else if (angle == "g") {
+    return (M_PI / 200);
+  }
+  return 1;
 }
 std::string Calculator::evaluate(std::vector<std::string> &rpn) {
 
